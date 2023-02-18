@@ -1,0 +1,28 @@
+version: "3.7"  
+
+services: 
+  reverseproxy: 
+    container_name: nginx 
+    image: nginx:1.21    
+    volumes:            
+      - /var/log/nginx:/var/log/nginx 
+      - /etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /usr/share/nginx/html:/usr/share/nginx/html:ro 
+      - /etc/ssl/:/etc/nginx/ssl:ro 
+    ports: 
+      - "80:80" 
+      - "443:443"
+    restart: always 
+    networks: 
+      - nginx_network
+
+  backend-api:
+    container_name: backend-api
+    image: backend-api
+    restart: always
+    networks: 
+      - nginx_network
+
+networks:
+  nginx_network: 
+    external: false 
