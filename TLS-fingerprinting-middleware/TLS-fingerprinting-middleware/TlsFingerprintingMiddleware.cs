@@ -1,5 +1,7 @@
 using System;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
@@ -16,18 +18,22 @@ public class TlsFingerprintingMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        if (context.Request.IsHttps)
-        {
-            // Get the client certificate from the SslStream
-            X509Certificate2 serverCertificate = context.Connection?.ClientCertificate as X509Certificate2;
+        // Get the X-SSL-CERT header value from the request
+        string clientCertHeader = context.Request.Headers["X-SSL-CERT"];
 
-            // Get the SHA-256 fingerprint of the certificate
-            byte[] rawData = serverCertificate.GetCertHash();
-            string fingerprint = BitConverter.ToString(rawData).Replace("-", ":").ToLower();
+        // Convert the client certificate from PEM format to X509Certificate2 object
+        X509Certificate2 clientCert = new X509Certificate2(Encoding.ASCII.GetBytes(clientCertHeader));
 
-            // Store the fingerprint in the HttpContext
-            context.Items["tls-fingerprint"] = fingerprint;
-        }
+        // Get the client certificate's public key and calculate its SHA256 hash
+        RSACryptoServiceProvider rsa = (RSACryptoServiceProvider) clientCert.PublicKey.Key;
+        byte[] hash = SHA256.Create().ComputeHash(rsa.ExportSubjectPublicKeyInfo());
+
+        // Convert the hash to a hexadecimal string
+        string fingerprint = BitConverter.ToString(hash).Replace("-", "").ToLower();
+
+        // Store the fingerprint in the HttpContext
+        context.Items["tls-fingerprint"] = fingerprint;
+
 
         await _next(context);
     }
