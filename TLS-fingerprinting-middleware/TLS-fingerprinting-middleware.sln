@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLS-fingerprinting-middleware", "TLS-fingerprinting-middleware\TLS-fingerprinting-middleware.csproj", "{AF9049EB-EFA4-4902-AACF-950839CA6A43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApplication", "..\TestWebApplication\TestWebApplication.csproj", "{A7DE482D-39EB-4FA7-88B8-5DE48C28CAD1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF9049EB-EFA4-4902-AACF-950839CA6A43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF9049EB-EFA4-4902-AACF-950839CA6A43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF9049EB-EFA4-4902-AACF-950839CA6A43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF9049EB-EFA4-4902-AACF-950839CA6A43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7DE482D-39EB-4FA7-88B8-5DE48C28CAD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7DE482D-39EB-4FA7-88B8-5DE48C28CAD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7DE482D-39EB-4FA7-88B8-5DE48C28CAD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7DE482D-39EB-4FA7-88B8-5DE48C28CAD1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
